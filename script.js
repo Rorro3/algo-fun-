@@ -10,10 +10,10 @@ const ctx = canvas.getContext("2d");
 let dibujando = false;
 let historial = [];
 
-// Al cargar, oculta la segunda parte
+// oculta la segunda parte cuando carga porque no me salio hacerlo cambiando clases
 segunda_parte.style.display = 'none';
 
-// Mostrar segunda parte al hacer click en cualquiera de los botones
+// muestra la segunda parte haciendo click en cualquiera de los botones, no se por que hice dos botones
 primer_boton.addEventListener('click', () => {
   primera_parte.style.display = 'none';
   segunda_parte.style.display = 'flex';
@@ -23,10 +23,10 @@ segundo_boton.addEventListener('click', () => {
   segunda_parte.style.display = 'flex';
 });
 
-// Eventos para dibujar en el canvas
+// para que la gente dibuje, miti miti hecho con chatgpt
 canvas.addEventListener("mousedown", (e) => {
   dibujando = true;
-  // Guardar estado actual para poder deshacer
+  // esto es para poder deshacer
   historial.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
 
   const rect = canvas.getBoundingClientRect();
@@ -54,7 +54,7 @@ canvas.addEventListener("mousemove", (e) => {
   ctx.stroke();
 });
 
-// Ctrl + Z para deshacer dibujo
+// Ctrl + Z para poder deshacer dibujo
 window.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.key === "z") {
     e.preventDefault();
@@ -65,7 +65,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-// Enviar dibujo y nombre a Google Sheet
+// Envia el dibujo y nombre a Google Sheet
 boton_enviar.addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -76,7 +76,7 @@ boton_enviar.addEventListener('click', (e) => {
   }
 
   const nombre = input_nombre.value.trim();
-  // Obtener imagen en base64 sin el prefijo "data:image/png;base64,"
+  // Obtener imagen en base64 sin el prefijo "data:image/png;base64," COSAS RARAS
   const base64Image = canvas.toDataURL('image/png').split(',')[1];
 
   const dataToSend = {
@@ -85,7 +85,7 @@ boton_enviar.addEventListener('click', (e) => {
     fecha: new Date().toISOString(),
   };
 
-  console.log("Datos a enviar:", dataToSend); // Para debug
+  console.log("Datos a enviar:", dataToSend); // Para saber
 
   const sheetBestUrl = "https://api.sheetbest.com/sheets/7480c758-2eab-4dfb-9758-fd7c83f04d59";
 
